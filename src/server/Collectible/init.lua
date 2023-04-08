@@ -130,7 +130,7 @@ function Collectible.new(type: Type, zone, data, dataOverwrite: any?)
             platform.Position.X + math.random(-psx/2, psx/2),
             platform.Position.Y + platform.Size.Y/2 + hitbox.Size.Y/2,
             platform.Position.Z + math.random(-psz/2, psz/2)
-        )));
+        )) * CFrame.Angles(0, math.rad(math.random(0, 360)), 0));
         gameObject.Name = this.id;
         gameObject.Parent = zone.collectibles;
         

@@ -18,13 +18,13 @@ function Player.get(id: number)
 end
 
 function Player.new(robloxPlayer: Player)
-    local kID = robloxPlayer.UserId;
-    if Player.get(kID) then
+    local id = robloxPlayer.UserId;
+    if Player.get(id) then
         std.warnf("creating a duplicate %s player.", robloxPlayer.Name);
     end
     local this = {
-        id = kID,
-        developer = special_players.developers[kID] ~= nil,
+        id = id,
+        developer = special_players.developers[id] ~= nil,
         name = robloxPlayer.Name,
         dname = robloxPlayer.DisplayName,
         data = {
@@ -45,7 +45,7 @@ function Player.new(robloxPlayer: Player)
                 }
             },
             stats = {
-                clickInterval = 1   -- how much a click takes to recharge (in seconds)
+                clickInterval = 1 -- [DEFAULT: 0.4] how much time a click takes to recharge (in seconds)
             }
         },
         lastClick = 0
@@ -77,7 +77,7 @@ function Player.new(robloxPlayer: Player)
                 perc += v;
             end
         end
-        return total * mul * (perc / 100 + 1);
+        return total * mul * (perc/100 + 1);
     end
     
     function this:add_currency(currency: string, amount: number)
@@ -140,7 +140,7 @@ function Player.new(robloxPlayer: Player)
     
     do
         this:on_join();
-        players[kID] = this;
+        players[id] = this;
     end
     
     return this;

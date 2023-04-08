@@ -125,6 +125,16 @@ function collectibles.create_ui(data: {
             return;
         end
         
+        -- display click interval bar
+        local reloadBar = bui.canvas.reload.bar;
+        reloadBar.Size = UDim2.fromScale(1, reloadBar.Size.Y.Scale);
+        TweenService:Create(
+            bui.canvas.reload.bar,
+            TweenInfo.new(damage.clickInterval, Enum.EasingStyle.Linear),
+            { Size = UDim2.fromScale(0, reloadBar.Size.Y.Scale) }
+        ):Play();
+        
+        
         local hrp = player.Character.HumanoidRootPart;
         local damageSignificance = damage.value / maxHealth;
         local isDamageInsignificant = health > 1000 and damageSignificance < 0.002;
@@ -132,7 +142,8 @@ function collectibles.create_ui(data: {
         
         -- if the player is close enough or the health change
         --   is significant enough then we can use more effects,
-        --   otherwise we just simply update the UI to increase performance.
+        --   otherwise we just simply update the UI without any animations
+        --   to increase performance.
         
         if not initialCreation and not isFarAway then
             -- give visual feedback
@@ -192,15 +203,6 @@ function collectibles.create_ui(data: {
                 end
             end)
         end
-        
-        -- display click interval bar
-        local reloadBar = bui.canvas.reload.bar;
-        reloadBar.Size = UDim2.fromScale(1, reloadBar.Size.Y.Scale);
-        TweenService:Create(
-            bui.canvas.reload.bar,
-            TweenInfo.new(damage.clickInterval, Enum.EasingStyle.Linear),
-            { Size = UDim2.fromScale(0, reloadBar.Size.Y.Scale) }
-        ):Play();
     end
     
     do
